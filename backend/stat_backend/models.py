@@ -11,7 +11,7 @@ class StatisticsModel(db.Model):
     strigency = db.Column(db.Numeric(Numeric(10,2), default=0.00)
 
 
-class Updates(db.Model):
+class UpdatesModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date_value = db.Column(db.Date, nullable=False, index=True)
     records = db.Column(db.Integer, default=0)
