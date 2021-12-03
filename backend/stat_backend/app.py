@@ -1,22 +1,24 @@
 import os
 
-from flask import Flask, jsonify, request
+from flask import Flask
 from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
+from flask_restplus import Api
 
-from models import StatModel, HistUpdatesModel
+from models import StatisticsModel, UpdatesModel
 
-host = os.environ["POSTGRES_HOST"]
-port = os.environ["POSTGRES_PORT"]
-username = os.environ["POSTGRES_USER"]
-password = os.environ["POSTGRES_PASS"]
-database = os.environ["POSTGRES_DB"]
+def create_app():
+    from stat_backend.api_namespace import api_namespace
 
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://{username}:{password}@{host}:{port}/{database}"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+    application = Flask(__name__)
+    api = Api(application, version="0.1", title="Statistics COVID-19 Backend API", description="Simple API for wrapper for 3d service")
 
-if __name__ == "__main__":
-    app.run(debug=True)
+    from stat_backend.db import db, db_config
+    application.config["RESTPLUS_MASK_SWAGGER"] = False
+    application.config.update(db_config)
+    db.init_app(application)
+    migrate = Migrate(application, db)
+    application.db = db
+
+    application.add_namespace(api_namespace)
+
+    return application
