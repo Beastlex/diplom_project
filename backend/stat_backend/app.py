@@ -10,7 +10,7 @@ from flask_restful import Api
 def create_app():
     application = Flask(__name__)
 
-    from stat_backend.db import db, db_config
+    from db import db, db_config
     application.config.update(db_config)
     db.init_app(application)
     migrate = Migrate(application, db)
