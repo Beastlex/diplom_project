@@ -2,9 +2,9 @@ import os
 
 from flask import Flask
 from flask_migrate import Migrate
-from flask_restplus import Api
+from flask_restful import Api
 
-from models import StatisticsModel, UpdatesModel
+# from models import StatisticsModel, UpdatesModel
 
 
 def create_app():
@@ -15,7 +15,6 @@ def create_app():
               description="Simple API for wrapper for 3d service")
 
     from stat_backend.db import db, db_config
-    application.config["RESTPLUS_MASK_SWAGGER"] = False
     application.config.update(db_config)
     db.init_app(application)
     migrate = Migrate(application, db)
@@ -24,3 +23,7 @@ def create_app():
     application.add_namespace(api_namespace)
 
     return application
+
+if __name__=="__main__":
+    app = create_app()
+    app.run(port=5000, debug=True)
