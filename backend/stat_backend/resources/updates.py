@@ -26,6 +26,9 @@ def get_from_api(start_date, end_date):
 
     return dict
 
+def get_country_list():
+    return StatisticsModel.query.distinct(StatisticsModel.country_code).all()
+
 class LastUpdate(Resource):
     def get(self):
         record = get_last_update()
@@ -33,6 +36,12 @@ class LastUpdate(Resource):
             return record.json()
         return {"message": "Updates not found in this year"}, 404
 
+class CountryList(Resource):
+    def get(self):
+        countries = get_country_list()
+        if countries:
+            return countries
+        return {"message": "There is no country lis"}, 404
 
 class PerformUpdate(Resource):
     def get(self):
