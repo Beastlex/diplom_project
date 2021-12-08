@@ -17,12 +17,12 @@ class StatisticsModel(db.Model):
 
     def json(self):
         return {
-            "date_value": self.date_value,
+            "date_value": f"{self.date_value:%Y-%m-%d}",
             "county_code": self.country_code,
             "confirmed": self.confirmed,
             "deaths": self.deaths,
-            "stringency_actual": self.stringency_actual,
-            "stringency": self.strigency,
+            "stringency_actual": f"{self.stringency_actual:.2f}" ,
+            "stringency": f"{self.stringency:.2f}",
         }
 
     def save_to_db(self):

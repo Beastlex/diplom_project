@@ -23,4 +23,5 @@ class StatisticsList(Resource):
             .order_by(field)
             .all()
         )
-        return {"statistics": list(map(lambda r: r.json), records)}
+        print(records)
+        return {"statistics": list(map(lambda r: r.json(), records))}

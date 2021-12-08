@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from models.updates import UpdatesModel
 from models.stats import StatisticsModel
-from datetime import date
+from datetime import date, timedelta
 from sqlalchemy import extract
 from db import db
 import urllib.request, json
@@ -53,7 +53,7 @@ class PerformUpdate(Resource):
         start_date = date(today.year, 1, 1)
         last_update = get_last_update()
         if last_update:
-            start_date = last_update.date_value
+            start_date = last_update.date_value + timedelta(days=1)
         
         stat_update = get_from_api(start_date, today)
         if stat_update["data"]:
