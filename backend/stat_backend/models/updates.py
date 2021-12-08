@@ -1,5 +1,6 @@
 from db import db
 
+
 class UpdatesModel(db.Model):
     __tablename__ = "updates"
 
@@ -12,7 +13,7 @@ class UpdatesModel(db.Model):
         self.records = records
 
     def json(self):
-        return {"date_value": self.date_value, "records": self.records}
+        return {"date_value": f"{self.date_value:%Y-%m-%d}", "records": self.records}
 
     @classmethod
     def find_by_date(cls, search_date):
