@@ -16,7 +16,7 @@ class StatisticsList(Resource):
         records = (
             StatisticsModel.query.filter(
                 and_(
-                    StatisticsModel.country_code == country,
+                    StatisticsModel.country_code == country.upper(),
                     extract("year", StatisticsModel.date_value) == today.year,
                 )
             )
