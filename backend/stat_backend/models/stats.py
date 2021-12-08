@@ -9,7 +9,7 @@ class StatisticsModel(db.Model):
     confirmed = db.Column(db.Integer, default=0)
     deaths = db.Column(db.Integer, default=0)
     stringency_actual = db.Column(db.Numeric(10,2), default=0.00)
-    strigency = db.Column(db.Numeric(10,2), default=0.00)
+    stringency = db.Column(db.Numeric(10,2), default=0.00)
 
     def __init__(self, date_value, county_code):
         self.date_value = date_value
@@ -21,8 +21,8 @@ class StatisticsModel(db.Model):
             "county_code": self.country_code,
             "confirmed": self.confirmed,
             "deaths": self.deaths,
-            "strigency_actual": self.stringency_actual,
-            "strigency": self.strigency,
+            "stringency_actual": self.stringency_actual,
+            "stringency": self.strigency,
         }
 
     def save_to_db(self):

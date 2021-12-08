@@ -3,6 +3,7 @@ from models.updates import UpdatesModel
 from models.stats import StatisticsModel
 from datetime import date
 from sqlalchemy import extract
+from db import db
 import urllib.request, json
 
 
@@ -45,4 +46,20 @@ class CountryList(Resource):
 
 class PerformUpdate(Resource):
     def get(self):
-        pass
+        today = date.today()
+        start_date = date(today.year, 1, 1)
+        last_update = get_last_update()
+        if last_update:
+            start_date = last_update.date_value
+        
+        stat_update = get_from_api(start_date, today)
+        if stat_update["data"]:
+            for record in stat_update["data"]:
+                stat_rec = StatisticsModel(record["date_value"], record["country_code"])
+                stat_rec.confirmed = record["confirmed"]
+                stat_rec.deaths = record["death"]
+                stat_rec.stringency = record["stringency"]
+                stat_rec.stringency_actual = record["stringency_actual"]
+                db.session.add(stat_rec)
+            db.session.commit()
+
