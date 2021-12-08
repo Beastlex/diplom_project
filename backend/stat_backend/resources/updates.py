@@ -54,6 +54,10 @@ class PerformUpdate(Resource):
         
         stat_update = get_from_api(start_date, today)
         if stat_update["data"]:
+            update_record = UpdatesModel(today, 0)
+            db.session.add(update_record)
+            db.session.commit()
+            db.session.refresh(update_record)
             for record in stat_update["data"]:
                 stat_rec = StatisticsModel(record["date_value"], record["country_code"])
                 stat_rec.confirmed = record["confirmed"]
@@ -61,5 +65,6 @@ class PerformUpdate(Resource):
                 stat_rec.stringency = record["stringency"]
                 stat_rec.stringency_actual = record["stringency_actual"]
                 db.session.add(stat_rec)
+            update_record.records = len(stat_update["data"])
             db.session.commit()
 
