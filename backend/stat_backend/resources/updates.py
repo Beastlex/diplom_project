@@ -30,6 +30,9 @@ def get_from_api(start_date, end_date):
 def get_country_list():
     return StatisticsModel.query.distinct(StatisticsModel.country_code).all()
 
+def date_from_str(string_date):
+    return (int(x) for x in string_date.split("-"))
+
 class LastUpdate(Resource):
     def get(self):
         record = get_last_update()
@@ -58,13 +61,17 @@ class PerformUpdate(Resource):
             db.session.add(update_record)
             db.session.commit()
             db.session.refresh(update_record)
-            for record in stat_update["data"]:
-                stat_rec = StatisticsModel(record["date_value"], record["country_code"])
-                stat_rec.confirmed = record["confirmed"]
-                stat_rec.deaths = record["death"]
-                stat_rec.stringency = record["stringency"]
-                stat_rec.stringency_actual = record["stringency_actual"]
-                db.session.add(stat_rec)
+            # print(stat_update["data"])
+            for key_date in stat_update["data"]:
+                for country in stat_update["data"][key_date]: 
+                    record = stat_update["data"][key_date][country]
+                    record_date = date(*date_from_str(record["date_value"]))
+                    stat_rec = StatisticsModel(record_date, record["country_code"])
+                    stat_rec.confirmed = record["confirmed"]
+                    stat_rec.deaths = record["deaths"]
+                    stat_rec.stringency = record["stringency"]
+                    stat_rec.stringency_actual = record["stringency_actual"]
+                    db.session.add(stat_rec)
             update_record.records = len(stat_update["data"])
             db.session.commit()
 
