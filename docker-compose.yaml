@@ -7,6 +7,10 @@ services:
       context: .
     ports:
       - "8000:80"
+    depends_on:
+      - frontend
+      - backend
+      - db
 
   frontend:
     build:
@@ -21,8 +25,10 @@ services:
 
   db:
     env_file: environment.env
-    build:
-      dockerfile: db/Dockerfile
-      context:
-    ports:
-      - "5432:5432"
+    image: posgres:14.1-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:
+
