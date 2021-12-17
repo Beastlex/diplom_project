@@ -27,7 +27,7 @@ RUN adduser -H -D -S uwsgi
 USER uwsgi
 
 # copy from compile-image dependencies
-COPY --chown=uwsgi:uwsgi --from=compile-image /opt/venv /ope/venv
+COPY --chown=uwsgi:uwsgi --from=compile-image /opt/venv /opt/venv
 
 ENV PATH="/opt/venv/bin:$PATH"
 
