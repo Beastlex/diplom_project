@@ -3,7 +3,7 @@ version: '3.8'
 services:
   reverseproxy:
     build:
-      dockerfile: reverseproxy/Dockerfile
+      dockerfile: Dockerfile
       context: ./reverseproxy
     ports:
       - "8000:80"
@@ -14,13 +14,13 @@ services:
 
   frontend:
     build:
-      dockerfile: frontend/Dockerfile
+      dockerfile: Dockerfile
       context: ./frontend
 
   backend:
     env_file: environment.env
     build:
-      dockerfile: backend/Dockerfile
+      dockerfile: Dockerfile
       context: ./backend
 
   db:
