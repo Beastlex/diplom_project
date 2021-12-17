@@ -14,6 +14,15 @@ services:
       context: .
 
   backend:
+    env_file: environment.env
     build:
       dockerfile: backend/Dockerfile
       context: .
+
+  db:
+    env_file: environment.env
+    build:
+      dockerfile: db/Dockerfile
+      context:
+    ports:
+      - "5432:5432"
