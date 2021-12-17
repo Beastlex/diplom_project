@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  reverseproxy:
+    build:
+      dockerfile: reverseproxy/Dockerfile
+      context: .
+    ports:
+      - "8000:80"
+
+  frontend:
+    build:
+      dockerfile: frontend/Dockerfile
+      context: .
+
+  backend:
+    build:
+      dockerfile: backend/Dockerfile
+      context: .
