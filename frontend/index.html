@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="pure-min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <form id="update-form" class="pure-form pure-form-stacked">
+      <fieldset>
+        <legend>Обновить данные</legend>
+        <span id="update-msg" class="pure-form-message">Дата последнего обновления</span>
+        <span id="allready-update-msg" class="pure-form-message" hidden>Уже обновляется</span>
+        <button id="update-btn" class="pure-button">Обновить</button>
+      </fieldset>
+    </form>
+    <form if="filter-form" class="pure-form">
+      <fieldset>
+        <legend>Отобразить данные</legend>
+        <select id="country-sel">
+          <option value="" disabled selected>Выберите страну</option>
+        </select>
+        <select id="sort-order-sel">
+          <option value="" disabled selected>Выберите порядок сортировки</option>
+          <option value="deaths" disabled selected>По смертности</option>
+          <option value="dates" disabled selected>По датам</option>
+        </select>
+        <button id="request-btn" class="pure-form pure-button-primary">Ok</button>
+    </form>
+    <h3>Данные:</h3>
+    <div id="data-div">
+    </div>
+  </body>
+</html>
+
