@@ -12,6 +12,6 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # copy project
-COPY ./stat_backend/* .
+COPY ./stat_backend/* ./
 EXPOSE 5000
 CMD ["uwsgi", "--ini", "/app/wsgi.ini"]
