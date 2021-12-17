@@ -4,7 +4,7 @@ services:
   reverseproxy:
     build:
       dockerfile: reverseproxy/Dockerfile
-      context: .
+      context: ./reverseproxy
     ports:
       - "8000:80"
     depends_on:
@@ -15,13 +15,13 @@ services:
   frontend:
     build:
       dockerfile: frontend/Dockerfile
-      context: .
+      context: ./frontend
 
   backend:
     env_file: environment.env
     build:
       dockerfile: backend/Dockerfile
-      context: .
+      context: ./backend
 
   db:
     env_file: environment.env
