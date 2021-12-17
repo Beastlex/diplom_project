@@ -8,8 +8,8 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONBUFFERED 1
 
 # install dependencies
-COPY requiements.txt .
-RUN pip install -r requiements.txt
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
 # copy project
 COPY ./stat_backend/* .
