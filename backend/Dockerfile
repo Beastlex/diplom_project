@@ -27,7 +27,7 @@ RUN adduser -H -D -S uwsgi
 USER uwsgi
 
 # copy from compile-image dependencies
-COPY --chown=uwsgi:uwsgi --from=compile-image /opt/venv /opt/venv
+COPY --chown=uwsgi:uwsgi --from=compile-image /opt/venv /ope/venv
 
 ENV PATH="/opt/venv/bin:$PATH"
 
@@ -35,4 +35,4 @@ ENV PATH="/opt/venv/bin:$PATH"
 COPY --chown=uwsgi:uwsgi ./stat_backend/* /app/
 WORKDIR /app
 EXPOSE 5000
-CMD ["uwsgi", "--ini", "/app/wsgi.ini"]
+CMD ["uwsgi", "--ini", "/app/uwsgi.ini"]
