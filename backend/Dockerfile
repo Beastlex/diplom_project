@@ -1,38 +1,44 @@
 ######
 # Image for compile uwsgi
 # ####
-FROM python:3.9.9-bullseye AS compile-image
-
-RUN apt-get install -y gcc
+FROM python:3.9.9-slim-bullseye AS compile-image
 
 WORKDIR /app
 
-RUN python3 -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONBUFFERED 1
 
-COPY requirements.txt .
-RUN pip3 install -r requirements.txt
+# install system dependencies
+RUN apt-get update && \
+      apt-get install -y --no-install-recommends gcc
+
+# todo lint and maybe
+
+COPY stat_backend/ /app/
+
+# install dependencies
+COPY ./requirements.txt .
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
 
 ######
 # Image for runtime
 # ####
-FROM python:3.9.9-alpine
+FROM python:3.9.9-slim-bullseye
 
 # Working dir
 RUN mkdir /app
 
 # Create a user to run the service
-RUN addgroup -S uwsgi
-RUN adduser -H -D -S uwsgi
-USER uwsgi
+RUN addgroup --system app && adduser --system --group app
 
 # copy from compile-image dependencies
-COPY --chown=uwsgi:uwsgi --from=compile-image /opt/venv /opt/venv
-
-ENV PATH="/opt/venv/bin:$PATH"
+COPY --chown=app:app --from=compile-image /app/wheels /app/wheels
+COPY --chown=app:app --from=compile-image /app/requirements.txt /app/
+RUN pip install --no-cache /app/wheels/*
 
 # copy project
-COPY --chown=uwsgi:uwsgi ./stat_backend/* /app/
+COPY --chown=app:app ./stat_backend/ /app/
 WORKDIR /app
 EXPOSE 5000
-CMD ["uwsgi", "--ini", "/app/uwsgi.ini"]
+USER app
+CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:5000", "app:create_app()"]
