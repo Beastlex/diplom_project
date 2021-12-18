@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 DATABASE_ENGINE = os.environ.get("DATABASE_ENGINE", "POSTGRESQL")
 
 if DATABASE_ENGINE == "POSTGRESQL":
-    DB_URI = "postgresql://{user}:{password}@{host}:{port}/{database}"
+    DB_URI = "postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}"
 
     db_params = {
         "host": os.environ["POSTGRES_HOST"],
