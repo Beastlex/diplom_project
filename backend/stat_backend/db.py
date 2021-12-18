@@ -12,7 +12,7 @@ if DATABASE_ENGINE == "POSTGRESQL":
         "database": os.environ["POSTGRES_DB"],
         "user": os.environ["POSTGRES_USER"],
         "password": os.environ["POSTGRES_PASSWORD"],
-        "port": os.environ["POSTGRES_POSRT"],
+        "port": os.environ["POSTGRES_PORT"],
     }
 
     db_config = {
