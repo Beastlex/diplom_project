@@ -11,7 +11,7 @@ ENV PYTHONBUFFERED 1
 # install system dependencies
 RUN apt-get update && \
       apt-get install -y --no-install-recommends gcc
-
+RUN pip install --upgrade pip
 # todo lint and maybe
 
 COPY stat_backend/ /app/
@@ -38,6 +38,7 @@ RUN pip install --no-cache /app/wheels/*
 
 # copy project
 COPY --chown=app:app ./stat_backend/ /app/
+RUN chown -R app:app /app
 WORKDIR /app
 EXPOSE 5000
 USER app

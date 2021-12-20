@@ -14,7 +14,7 @@ if DATABASE_ENGINE == "POSTGRESQL":
         "password": os.environ["POSTGRES_PASSWORD"],
         "port": os.environ["POSTGRES_PORT"],
     }
-
+    print(db_params)
     db_config = {
         "SQLALCHEMY_DATABASE_URI": DB_URI.format(**db_params),
         "SQLALCHEMY_TRACK_MODIFICATIONS": False,
