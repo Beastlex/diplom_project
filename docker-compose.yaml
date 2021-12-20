@@ -21,7 +21,7 @@ services:
       context: ./frontend
     labels:
       - traefik.enable=true
-      - traefik.http.routers.frontend.rule=HasPrefix(`/`)
+        # - traefik.http.routers.frontend.rule=PathPrefix(`/`)
       - traefik.port=80
 
   backend:
@@ -31,7 +31,7 @@ services:
       context: ./backend
     labels:
       - traefik.enable=true
-      - traefik.http.routers.backend.rule=HasPrefix(`/api/`)
+      - traefik.http.routers.backend.rule=PathPrefix(`/api/`)
       - traefik.port=5000
     ports:
       - "5000:5000"
