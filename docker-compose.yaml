@@ -4,9 +4,12 @@ services:
   reverseproxy:
     build:
       dockerfile: Dockerfile
-      context: ./reverseproxy
+      context: ./traefik
     ports:
       - "8000:80"
+      - "8081:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
     depends_on:
       - frontend
       - backend
@@ -16,12 +19,20 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./frontend
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.frontend.rule=HasPrefix(`/`)
+      - traefik.port=80
 
   backend:
     env_file: environment.env
     build:
       dockerfile: Dockerfile
       context: ./backend
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.backend.rule=HasPrefix(`/api/`)
+      - traefik.port=5000
     ports:
       - "5000:5000"
 
