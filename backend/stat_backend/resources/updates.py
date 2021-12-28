@@ -1,5 +1,4 @@
 from flask_restful import Resource
-from flask import jsonify
 from models.updates import UpdatesModel
 from models.stats import StatisticsModel
 from datetime import date, timedelta
@@ -27,7 +26,9 @@ def get_from_api(start_date, end_date):
 
 
 def get_country_list():
-    return StatisticsModel.query.distinct(StatisticsModel.country_code).all()
+    # return StatisticsModel.query.distinct(StatisticsModel.country_code).all()
+    return StatisticsModel.query.with_entities(
+        StatisticsModel.country_code).distinct()
 
 
 def date_from_str(string_date):
@@ -46,7 +47,7 @@ class CountryList(Resource):
     def get(self):
         countries = get_country_list()
         if countries:
-            return jsonify(countries)
+            return [c.country_code for c in countries]
         return {"message": "There is no country lis"}, 404
 
 
