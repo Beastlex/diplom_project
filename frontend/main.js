@@ -17,7 +17,7 @@ const getLastUpdate = async () => {
 const getCountryList = async () => {
   const counrtyList = document.getElementById('country-sel');
   try {
-    const response = await fetch('/api/counties');
+    const response = await fetch('/api/countries');
     const result = await response.json();
     for (country in result) {
       let newOption = new Option(country, country);
