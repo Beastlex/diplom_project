@@ -21,8 +21,10 @@ services:
       context: ./frontend
     labels:
       - traefik.enable=true
-        # - traefik.http.routers.frontend.rule=PathPrefix(`/`)
+      - traefik.http.routers.frontend.rule=PathPrefix(`/`)
       - traefik.port=80
+    ports:
+      - "80:80"
 
   backend:
     env_file: environment.env

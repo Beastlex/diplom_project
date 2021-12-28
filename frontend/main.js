@@ -2,7 +2,7 @@ const formUpdate = document.getElementById('update-form');
 const formFilter = document.getElementById('filter-form');
 
 
-const getLastUpdate = () => {
+const getLastUpdate = async () => {
   const updateMsg = document.getElementById('allready-update-msg');
   try {
     const response = await fetch('/api/last_update');
@@ -14,7 +14,7 @@ const getLastUpdate = () => {
   updateMsg.hidden = false;
 }; 
 
-const getCountryList = () => {
+const getCountryList = async () => {
   const counrtyList = document.getElementById('country-sel');
   try {
     const response = await fetch('/api/counties');
@@ -28,7 +28,7 @@ const getCountryList = () => {
   }
 };
 
-const performUpdate = () => {
+const performUpdate = async () => {
   try {
     const response = await fetch('/api/update');
     if (response.status == '200') {
@@ -58,7 +58,7 @@ const fillTable = (data) => {
   tableBody.innerHTML = tableData;
 }
 
-const getStatistics = () => {
+const getStatistics = async () => {
   const countryList = document.getElementById('country-sel');
   const orderList = document.getElementById('sort-order-sel');
   const uriQuery = `/api/stats/${counrtyList.value}/${orderList.value}`;
