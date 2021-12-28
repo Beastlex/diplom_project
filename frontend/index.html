@@ -12,7 +12,7 @@
         <legend>Обновить данные</legend>
         <span id="update-msg" class="pure-form-message">Дата последнего обновления</span>
         <span id="allready-update-msg" class="pure-form-message" hidden>Уже обновляется</span>
-        <button id="update-btn" class="pure-button">Обновить</button>
+        <button type="submit" id="update-btn" class="pure-button">Обновить</button>
       </fieldset>
     </form>
     <form if="filter-form" class="pure-form">
@@ -26,11 +26,26 @@
           <option value="deaths" disabled selected>По смертности</option>
           <option value="dates" disabled selected>По датам</option>
         </select>
-        <button id="request-btn" class="pure-form pure-button-primary">Ok</button>
+        <button type="submit" id="request-btn" class="pure-form pure-button-primary">Ok</button>
     </form>
     <h3>Данные:</h3>
     <div id="data-div">
+      <table>
+        <caption>COVID-19 Statistics</caption>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Country code</th>
+            <th>Confirmed</th>
+            <th>Deaths</th>
+            <th>Stringency actual</th>
+            <th>Stringency</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
+    <script src="main.js"></script>
   </body>
 </html>
 
