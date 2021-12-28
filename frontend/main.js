@@ -7,7 +7,7 @@ const getLastUpdate = async () => {
   try {
     const response = await fetch('/api/last_update');
     const result = await response.json();
-    updateMsg.textContent = `${result}`;
+    updateMsg.textContent = `${result.date_value}`;
   } catch (error) {
     updateMsg.textContent = "There is no update in this year";
   }
