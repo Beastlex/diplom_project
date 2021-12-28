@@ -63,7 +63,11 @@ const fillTable = (data) => {
 const getStatistics = async () => {
   const countryList = document.getElementById('country-sel');
   const orderList = document.getElementById('sort-order-sel');
-  const uriQuery = `/api/stats/${counrtyList.value}/${orderList.value}`;
+
+  countryText = countryList.options[countryList.selectedIndex].value;
+  orderText = orderList.options[orderList.selectedIndex].value;
+
+  const uriQuery = `/api/stats/${countryText}/${orderText}`;
   try {
     const response = await fetch(uriQuery);
     const data = await response.json();
@@ -80,6 +84,7 @@ formUpdate.addEventListener('submit', (e) => {
 
 formFilter.addEventListener('submit', (e) => {
   e.preventDefault();
+  getStatistics();
 });
 
 getLastUpdate();
