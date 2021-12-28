@@ -44,16 +44,16 @@ const performUpdate = async () => {
 };
 
 const fillTable = (data) => {
-  const tableBody = querySelector('tbody');
+  const tableBody = document.querySelector('tbody');
   const tableData = data.map((item) => {
     return `
     <tr>
-    <td>item.date_value</td>
-    <td>item.country_code</td>
-    <td>item.confirmed</td>
-    <td>item.deaths</td>
-    <td>item.stringency_actual</td>
-    <td>item.stringency</td>
+    <td>${item.date_value}</td>
+    <td>${item.country_code}</td>
+    <td>${item.confirmed}</td>
+    <td>${item.deaths}</td>
+    <td>${item.stringency_actual}</td>
+    <td>${item.stringency}</td>
     </tr>
     `;
   }).join('');
@@ -73,7 +73,8 @@ const getStatistics = async () => {
     const data = await response.json();
     fillTable(data.statistics);
   } catch (error) {
-    console.log("Could not load statics")
+    console.log("Could not load statics");
+    console.log(error);
   }
 };
 
