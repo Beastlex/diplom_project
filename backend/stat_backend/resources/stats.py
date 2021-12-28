@@ -13,15 +13,9 @@ class StatisticsList(Resource):
         else:
             field = StatisticsModel.date_value
 
-        records = (
-            StatisticsModel.query.filter(
-                and_(
-                    StatisticsModel.country_code == country.upper(),
-                    extract("year", StatisticsModel.date_value) == today.year,
-                )
-            )
-            .order_by(field)
-            .all()
-        )
-        print(records)
-        return {"statistics": list(map(lambda r: r.json(), records))}
+        records = (StatisticsModel.query.filter(
+            and_(
+                StatisticsModel.country_code == country.upper(),
+                extract("year", StatisticsModel.date_value) == today.year,
+            )).order_by(field).all())
+        return {"statistics": list(map(lambda r: r.json(), records))}, 200
