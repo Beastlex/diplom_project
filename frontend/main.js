@@ -19,9 +19,11 @@ const getCountryList = async () => {
   try {
     const response = await fetch('/api/countries');
     const result = await response.json();
-    for (country in result) {
-      let newOption = new Option(country, country);
-      counrtyList.append(newOption);
+    for (country of result.sort()) {
+      let newOption = document.createElement('option');
+      newOption.value = country
+      newOption.text = country
+      counrtyList.add(newOption, null)
     }
   } catch (error) {
     console.log("Could not load country list. Is it updated?");
