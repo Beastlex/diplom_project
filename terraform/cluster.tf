@@ -5,15 +5,19 @@ resource "azurerm_kubernetes_cluster" "aks-alzver-proj" {
   dns_prefix          = "aks-${var.postfix}"
 
   default_node_pool {
-    name                 = "mainpool"
-    vm_size              = "Standard_D2_v2"
-    enable_auto_scailing = true
-    min_count            = 1
-    max_count            = 2
-    vnet_subnet_id       = azurerm_subnet.subnet-aks.id
+    name                = "systempool"
+    vm_size             = "Standard_D2_v2"
+    enable_auto_scaling = true
+    min_count           = 1
+    max_count           = 3
+    vnet_subnet_id      = azurerm_subnet.subnet-aks.id
     tags = {
       owner = var.owner
     }
+  }
+
+  identity {
+    type = "SystemAssigned"
   }
 
   tags = {

@@ -8,11 +8,11 @@ resource "azurerm_postgresql_server" "pgs-alzver-proj" {
   storage_profile {
     storage_mb            = 5120
     backup_retention_days = 7
-    geo_redundant_backup  = "Disable"
+    geo_redundant_backup  = "Disabled"
   }
 
-  administration_login          = var.pglogin
-  administartion_password       = var.pgpasswd
+  administrator_login           = var.pglogin
+  administrator_login_password  = var.pgpasswd
   version                       = "9.5"
   ssl_enforcement               = "Enabled"
   public_network_access_enabled = false
