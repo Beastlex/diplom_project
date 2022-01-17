@@ -10,8 +10,9 @@ resource "azurerm_virtual_network" "vnet-alzver-proj" {
   }
 
   subnet {
-    name           = "subnet-db"
-    address_prefix = "10.0.2.0/24"
+    name              = "subnet-db"
+    address_prefix    = "10.0.2.0/24"
+    service_endpoints = ["Microsoft.Sql"]
   }
 
   subnet {
