@@ -20,8 +20,8 @@ resource "azurerm_resource_group" "rg-alzver-proj" {
 }
 
 resource "azurerm_log_analytics_workspace" "insights-alzver-proj" {
-  name = "logs-${var.postfix}"
-  location = var.location
+  name                = "logs-${var.postfix}"
+  location            = var.location
   resource_group_name = azurerm_resource_group.rg-alzver-proj.name
-  retention_in_days = 30
+  retention_in_days   = 30
 }

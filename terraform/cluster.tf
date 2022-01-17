@@ -21,9 +21,9 @@ resource "azurerm_kubernetes_cluster" "aks-alzver-proj" {
   }
 
   addon_profile {
-    azure_policy {enabled = true}
+    azure_policy { enabled = true }
     oms_agent {
-      enabled = true
+      enabled                    = true
       log_analytics_workspace_id = azurerm_log_analytics_workspace.insights-alzver-proj.id
     }
   }
