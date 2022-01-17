@@ -16,6 +16,10 @@ resource "azurerm_postgresql_server" "pgs-alzver-proj" {
   version                       = "9.5"
   ssl_enforcement               = "Enabled"
   public_network_access_enabled = false
+  
+  tags = {
+    owner = var.owner
+  }
 }
 
 resource "azurerm_postgresql_database" "pgdb-alzver-proj" {
