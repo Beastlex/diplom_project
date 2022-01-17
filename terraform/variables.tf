@@ -9,6 +9,6 @@ variable "postfix" {
 }
 
 variable "owner" {
-  type = string
+  type    = string
   default = "Aleksandr_Zverev1@epam.com"
 }
