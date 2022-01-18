@@ -12,3 +12,15 @@ ssh-keygen \
     -C "azureuser@aks-alzver-proj" \
     -f ~/.ssh/aks-alzver-proj/aks-ssh-key
 ```
+
+# Выполнить вход в учетную запись Azure
+```
+az login
+```
+
+# Развернуть инфраструктуру Terraform, последовательно выполняя
+```
+terraform init
+terraform plan
+terraform apply
+```
