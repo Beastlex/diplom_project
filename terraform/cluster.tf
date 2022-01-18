@@ -20,6 +20,13 @@ resource "azurerm_kubernetes_cluster" "aks-alzver-proj" {
     type = "SystemAssigned"
   }
 
+  linux_profile {
+    admin_username = "worker"
+    ssh_key {
+      key_data = file(var.ssh-public-key)
+    }
+  }
+
   addon_profile {
     azure_policy { enabled = true }
     oms_agent {

@@ -27,3 +27,8 @@ variable "dbname" {
   type    = string
   default = "statdb"
 }
+
+variable "ssh-public-key" {
+  default     = "~/.ssh/aks-alzver-proj/aks-ssh-key.pub"
+  description = "SSH Public Key for aks linux nodes"
+}
