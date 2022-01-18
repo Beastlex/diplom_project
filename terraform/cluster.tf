@@ -26,6 +26,7 @@ resource "azurerm_kubernetes_cluster" "aks-alzver-proj" {
       enabled                    = true
       log_analytics_workspace_id = azurerm_log_analytics_workspace.insights-alzver-proj.id
     }
+    kube_dashboard { enabled = true }
   }
 
   tags = {
