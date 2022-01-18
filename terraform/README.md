@@ -24,3 +24,18 @@ terraform init
 terraform plan
 terraform apply
 ```
+
+# Получить учетные данные для kubectl 
+```
+az aks get-credentials --resource-group rg-alzver-proj  --name aks-alzver-proj
+```
+
+# Проверить информацию о кластере 
+```
+kubectl cluster-info
+```
+
+# Получить информацию о нодах
+```
+kubectl get nodes
+```
