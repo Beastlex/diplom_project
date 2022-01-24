@@ -16,6 +16,14 @@ resource "azurerm_kubernetes_cluster" "aks-alzver-proj" {
     }
   }
 
+  network_profile {
+    network_plugin     = "azure"
+    service_cidr       = "10.0.4.0/24"
+    dns_service_ip     = "10.0.4.10"
+    docker_bridge_cidr = "172.17.0.1/16"
+    load_balancer_sku  = "Standard"
+  }
+
   identity {
     type = "SystemAssigned"
   }
@@ -33,7 +41,6 @@ resource "azurerm_kubernetes_cluster" "aks-alzver-proj" {
       enabled                    = true
       log_analytics_workspace_id = azurerm_log_analytics_workspace.insights-alzver-proj.id
     }
-    kube_dashboard { enabled = true }
   }
 
   tags = {
