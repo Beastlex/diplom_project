@@ -9,10 +9,3 @@ data:
   port: 5432
   host: db
   args: --auth-host=scram-sha-256
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: proj-secret
-stringData:
-  dbpass: Strong4Pass0rd

@@ -69,6 +69,6 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: proj-secret
-                  key: dbpass
+                  key: dbsec.txt
           ports:
             - containerPort: 5000
