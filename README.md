@@ -20,6 +20,21 @@ docker-compose up --build
 
 ## Deploy в облако
 
+Создать диреторию для хранения ssh ключей для нод кластера и файла с
+паролем для БД.
+
+```console
+mkdir -p $HOME/.ssh/aks-alzver-proj/
+```
+в диретории создать файл dbsec.txt, содержащий пароль для БД
+
+Создать из файла secret для Kubernetes
+```console
+k create secret generic dbpass \ 
+  --from-file=$HOME/.ssh/aks-alzver-proj/dbsec.txt \
+  --dry-run=client --output=yaml > k8s/01-secret.yaml
+```
+
 Перейти в папку terraform и выполнить шаги, описанные в Terraform/README.md
 
 В данном каталоге убедить, что получены credentials для Kubernetes
