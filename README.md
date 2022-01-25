@@ -30,7 +30,7 @@ mkdir -p $HOME/.ssh/aks-alzver-proj/
 
 Создать из файла secret для Kubernetes
 ```console
-k create secret generic proj-secret \ 
+kubectl create secret generic proj-secret \ 
   --from-file=$HOME/.ssh/aks-alzver-proj/dbsec.txt \
   --dry-run=client --output=yaml > k8s/01-secret.yaml
 ```
