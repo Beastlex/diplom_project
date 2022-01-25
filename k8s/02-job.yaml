@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "migrate-job"
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      name: "migrate-job-pod"
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: db-migrate
+          image: dock.io/flask-app:v1
+          command: ["migrate.sh"]
