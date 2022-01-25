@@ -1,6 +1,5 @@
 /backend/venv
 /backedn/.vscode
-/backend/stat_backend/migrations/
 *.env
 __pycache__/
 *.py[cod]
