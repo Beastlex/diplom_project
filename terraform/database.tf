@@ -12,7 +12,7 @@ resource "azurerm_postgresql_server" "pgs-alzver-proj" {
   }
 
   administrator_login           = var.pglogin
-  administrator_login_password  = var.pgpasswd
+  administrator_login_password  = file(var.pgpasswd)
   version                       = "9.5"
   ssl_enforcement               = "Enabled"
   public_network_access_enabled = false

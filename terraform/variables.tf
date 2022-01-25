@@ -20,7 +20,8 @@ variable "pglogin" {
 
 variable "pgpasswd" {
   type    = string
-  default = "Type password in terraform.tfvars"
+  default = "~/.ssh/aks-alzver-proj/dbsec.txt"
+  description = "Path to file with password for PostgreSQL"
 }
 
 variable "dbname" {
