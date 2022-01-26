@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: dock.io/frontend:v1
+          image: acr2022alzver.azurecr.io/frontend:v1
           resources:
             requests:
               cpu: 100m

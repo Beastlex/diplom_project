@@ -37,7 +37,25 @@ kubectl create secret generic proj-secret \
 
 Перейти в папку terraform и выполнить шаги, описанные в Terraform/README.md
 
-В данном каталоге убедить, что получены credentials для Kubernetes
+
+Залогиниться в реестр контейнеров
+```
+az acr login --name acr2022alzver
+```
+
+Перейти в каталог backend, собрать и запушить образ
+```
+docker build -t acr2022alzver.azurecr.io/backend:v1 .
+docker push acr2022alzver.azurecr.io/backend:v1
+```
+
+Перейти в каталог frontend, собрать и запушить
+```
+docker build -t acr2022alzver.azurecr.io/frontend:v1 .
+docker push acr2022alzver.azurecr.io/frontend:v1
+```
+
+В данном каталоге убедиться, что получены credentials для Kubernetes
 с помощью
 ```
 az aks get-credentials --resource-group rg-alzver-proj  --name aks-alzver-proj

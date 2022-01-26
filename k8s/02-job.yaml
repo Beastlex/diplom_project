@@ -11,5 +11,5 @@ spec:
       restartPolicy: Never
       containers:
         - name: db-migrate
-          image: dock.io/flask-app:v1
+          image: acr2022alzver.azurecr.io/backend:v1
           command: ["migrate.sh"]
