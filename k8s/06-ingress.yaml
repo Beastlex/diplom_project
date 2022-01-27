@@ -7,18 +7,18 @@ metadata:
 spec:
   rules:
     - http:
-      paths:
-        - path: /api/
-          pathType: Prefix
-          backend:
-            service: 
-              name: flask-backend
-              port:
-                number: 5000
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: nginx-frontend
-              port:
-                number: 80
+        paths:
+          - path: /api/
+            pathType: Prefix
+            backend:
+              service: 
+                name: flask-backend
+                port:
+                  number: 5000
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx-frontend
+                port:
+                  number: 80
