@@ -3,9 +3,9 @@ kind: ConfigMap
 metadata:
   name: proj-config
 data:
-  engine: POSTGRESQL
-  db: statdata
-  user: postgres
-  port: 5432
-  host: db
-  args: --auth-host=scram-sha-256
+  engine: "POSTGRESQL"
+  db: "statdata"
+  user: "postgres"
+  port: "5432"
+  host: "pgs-alzver-proj.postgres.database.azure.com"
+  args: "--auth-host=scram-sha-256"
