@@ -66,7 +66,7 @@ kubectl cluster-info
 ```
 запустить манифесты Kubernetes
 ```
-kubectl apply -f ./k8s/*
+kubectl apply -f k8s/
 ```
 
 ## Дополнитеьная презентация CI/CD в Azure DevOps
