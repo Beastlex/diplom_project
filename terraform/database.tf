@@ -11,12 +11,12 @@ resource "azurerm_postgresql_server" "pgs-alzver-proj" {
     geo_redundant_backup  = "Disabled"
   }
 
-  administrator_login           = var.pglogin
-  administrator_login_password  = trimspace(file(var.pgpasswd))
-  version                       = "9.5"
-  ssl_enforcement               = "Enabled"
+  administrator_login               = var.pglogin
+  administrator_login_password      = trimspace(file(var.pgpasswd))
+  version                           = "9.5"
+  ssl_enforcement                   = "Enabled"
   infrastructure_encryption_enabled = false
-  public_network_access_enabled = false
+  public_network_access_enabled     = false
 
   tags = {
     owner = var.owner

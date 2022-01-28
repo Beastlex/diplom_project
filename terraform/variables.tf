@@ -19,8 +19,8 @@ variable "pglogin" {
 }
 
 variable "pgpasswd" {
-  type    = string
-  default = "~/.ssh/aks-alzver-proj/dbsec.txt"
+  type        = string
+  default     = "~/.ssh/aks-alzver-proj/dbsec.txt"
   description = "Path to file with password for PostgreSQL"
 }
 
