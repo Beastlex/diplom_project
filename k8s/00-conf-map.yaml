@@ -5,7 +5,7 @@ metadata:
 data:
   engine: "POSTGRESQL"
   db: "statdata"
-  user: "postgres@pgs-alzver-proj.postgres.database.azure.com"
+  user: "postgres@10.0.2.4"
   port: "5432"
-  host: "pgs-alzver-proj.postgres.database.azure.com"
+  host: "10.0.2.4"
   args: "--auth-host=scram-sha-256"

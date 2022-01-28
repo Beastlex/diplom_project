@@ -1,4 +1,4 @@
-apiVersion: autoscaling/v1
+apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: frontend-scaler
@@ -9,9 +9,15 @@ spec:
     name: nginx-frontend
   minReplicas: 1
   maxReplicas: 5
-  targetCPUUtilizationPecentage: 60
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
 ---
-apiVersion: autoscaling/v1
+apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: backend-scaler
@@ -22,4 +28,10 @@ spec:
     name: flask-backend
   minReplicas: 1
   maxReplicas: 10
-  targetCPUUtilizationPecentage: 60
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
