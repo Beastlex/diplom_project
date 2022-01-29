@@ -31,11 +31,21 @@ resource "azurerm_postgresql_database" "pgdb-alzver-proj" {
   collation           = "English_United States.1252"
 }
 
-resource "azurerm_private_endpoint" "endpdb-azlver-proj" {
+resource "azurerm_private_dns_zone" "pdns-alzver-proj" {
+  name = "pdns-alzver.postgres.database.azure.com"
+  resource_group_name = azurerm_resource_group.rg-alzver-proj.name
+}
+
+resource "azurerm_private_endpoint" "endpdb-alzver-proj" {
   name                = "endpdb-alzver-proj"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg-alzver-proj.name
   subnet_id           = azurerm_subnet.subnet-db.id
+  
+  private_dns_zone_group {
+    name = "private-dns-zone"
+    private_dns_zone_ids = [azurerm_private_dns_zone.pdns-alzver-proj.id]
+  }
 
   private_service_connection {
     name                           = "endpdb-alzver-proj-ps"
