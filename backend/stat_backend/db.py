@@ -8,11 +8,11 @@ if DATABASE_ENGINE == "POSTGRESQL":
     DB_URI = "postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}"
 
     db_params = {
-        "host": os.environ["POSTGRES_HOST"],
-        "database": os.environ["POSTGRES_DB"],
-        "user": os.environ["POSTGRES_USER"],
-        "password": os.environ["POSTGRES_PASSWORD"],
-        "port": os.environ["POSTGRES_PORT"],
+        "host": os.environ["POSTGRES_HOST"].strip(),
+        "database": os.environ["POSTGRES_DB"].strip(),
+        "user": os.environ["POSTGRES_USER"].strip(),
+        "password": os.environ["POSTGRES_PASSWORD"].strip(),
+        "port": os.environ["POSTGRES_PORT"].strip(),
     }
     print(db_params)
     db_config = {
