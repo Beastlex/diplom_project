@@ -7,7 +7,7 @@ services:
       context: ./traefik
     ports:
       - "8000:80"
-      - "8081:8080"
+      - "8080:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     depends_on:
@@ -21,10 +21,7 @@ services:
       context: ./frontend
     labels:
       - traefik.enable=true
-      - traefik.http.routers.frontend.rule=PathPrefix(`/`)
-      - traefik.port=80
-    ports:
-      - "80:80"
+      - traefik.http.routers.router1.rule=PathPrefix(`/`)
 
   backend:
     env_file: environment.env
@@ -33,14 +30,14 @@ services:
       context: ./backend
     labels:
       - traefik.enable=true
-      - traefik.http.routers.backend.rule=PathPrefix(`/api/`)
+      - traefik.http.routers.routers0.rule=PathPrefix(`/api/`)
       - traefik.port=5000
     ports:
       - "5000:5000"
 
   db:
     env_file: environment.env
-    image: postgres:14.1-alpine
+    image: postgres:11.14-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     ports:
