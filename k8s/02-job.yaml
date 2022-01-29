@@ -12,4 +12,7 @@ spec:
       containers:
         - name: db-migrate
           image: acr2022alzver.azurecr.io/backend:v1
-          command: ["migrate.sh"]
+          command: 
+            - /bin/bash 
+            - -c
+            - /app/migrate.sh

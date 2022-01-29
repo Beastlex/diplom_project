@@ -4,8 +4,8 @@ metadata:
   name: proj-config
 data:
   engine: "POSTGRESQL"
-  db: "statdata"
-  user: "postgres@10.0.2.4"
+  db: "statdb"
+  user: "psqladmin@pgs-alzver-proj.postgres.database.azure.com"
   port: "5432"
-  host: "10.0.2.4"
+  host: "pgs-alzver-proj.postgres.database.azure.com"
   args: "--auth-host=scram-sha-256"
