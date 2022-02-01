@@ -16,3 +16,39 @@ spec:
             - /bin/bash 
             - -c
             - /app/migrate.sh
+          env:
+            - name: DATABASE_ENGINE
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: engine
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: db
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: user
+            - name: POSTGRES_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: port
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: host
+            - name: POSTGRES_INITDB_ARGS
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: args
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: proj-secret
+                  key: dbsec.txt

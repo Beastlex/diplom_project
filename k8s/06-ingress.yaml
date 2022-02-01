@@ -8,14 +8,35 @@ spec:
   rules:
     - http:
         paths:
-          - path: /api/
-            pathType: Prefix
+          - path: /api/update
+            pathType: Exact
             backend:
               service: 
                 name: flask-backend
                 port:
                   number: 5000
-          - path: /
+          - path: /api/countries
+            pathType: Exact
+            backend:
+              service: 
+                name: flask-backend
+                port:
+                  number: 5000
+          - path: /api/last_update
+            pathType: Exact
+            backend:
+              service: 
+                name: flask-backend
+                port:
+                  number: 5000
+          - path: /api/dates
+            pathType: Exact
+            backend:
+              service: 
+                name: flask-backend
+                port:
+                  number: 5000
+          - path: /*
             pathType: Prefix
             backend:
               service:
