@@ -17,9 +17,11 @@ def get_last_update():
 
 def get_from_api(start_date, end_date):
     request_url = f"https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/{start_date:%Y-%m-%d}/{end_date:%Y-%m-%d}"
+    print("request_url: ", request_url)
 
     response = urllib.request.urlopen(request_url)
     data = response.read()
+    print("raw_data: ", data)
     dict = json.loads(data)
 
     return dict
@@ -60,7 +62,9 @@ class PerformUpdate(Resource):
             start_date = last_update.date_value + timedelta(days=1)
 
         stat_update = get_from_api(start_date, today)
-        if stat_update["data"]:
+        print("stat_update:", stat_update)
+        print("stat_update type:", type(stat_update))
+        if stat_update and stat_update["data"]:
             update_record = UpdatesModel(today, 0)
             db.session.add(update_record)
             db.session.commit()
