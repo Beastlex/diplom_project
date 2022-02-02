@@ -13,8 +13,7 @@ def create_app():
     application = Flask(__name__)
     api = Api(application, prefix="/api")
 
-    api.add_resource(StatisticsList,
-                     "/stats/<string:country>/<string:sort_field>")
+    api.add_resource(StatisticsList, "/stats")
     api.add_resource(PerformUpdate, "/update")
     api.add_resource(LastUpdate, "/last_update")
     api.add_resource(CountryList, "/countries")
