@@ -29,7 +29,7 @@ spec:
                 name: flask-backend
                 port:
                   number: 5000
-          - path: /api/dates
+          - path: /api/stats
             pathType: Exact
             backend:
               service: 
