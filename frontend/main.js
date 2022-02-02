@@ -64,12 +64,23 @@ const getStatistics = async () => {
   const countryList = document.getElementById('country-sel');
   const orderList = document.getElementById('sort-order-sel');
 
-  countryText = countryList.options[countryList.selectedIndex].value;
-  orderText = orderList.options[orderList.selectedIndex].value;
+  country = countryList.options[countryList.selectedIndex].value;
+  sort_field = orderList.options[orderList.selectedIndex].value;
 
-  const uriQuery = `/api/stats/${countryText}/${orderText}`;
+  const uriQuery = '/api/stats';
+  const queryBody = {
+    country,
+    sort_field
+  }
+
   try {
-    const response = await fetch(uriQuery);
+    const response = await fetch(uriQuery,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(queryBody)
+    );
     const data = await response.json();
     fillTable(data.statistics);
   } catch (error) {
