@@ -6,7 +6,7 @@ from sqlalchemy import extract, and_
 
 
 class StatisticsList(Resource):
-    def get(self, country, sort_field):
+    def post(self, country, sort_field):
         today = date.today()
         if sort_field == "deaths":
             field = StatisticsModel.deaths
