@@ -74,13 +74,13 @@ const getStatistics = async () => {
   }
 
   try {
-    const response = await fetch(uriQuery,
+    const response = await fetch(uriQuery, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify(queryBody)
-    );
+    });
     const data = await response.json();
     fillTable(data.statistics);
   } catch (error) {
