@@ -31,26 +31,34 @@ resource "azurerm_postgresql_database" "pgdb-alzver-proj" {
   collation           = "English_United States.1252"
 }
 
-resource "azurerm_private_dns_zone" "pdns-alzver-proj" {
-  name = "pdns-alzver.postgres.database.azure.com"
+resource "azurerm_private_endpoint" "pendp-alzver-proj" {
+  name                = "pendp-alzver-proj"
   resource_group_name = azurerm_resource_group.rg-alzver-proj.name
-}
-
-resource "azurerm_private_endpoint" "endpdb-alzver-proj" {
-  name                = "endpdb-alzver-proj"
   location            = var.location
-  resource_group_name = azurerm_resource_group.rg-alzver-proj.name
-  subnet_id           = azurerm_subnet.subnet-db.id
-  
-  private_dns_zone_group {
-    name = "private-dns-zone"
-    private_dns_zone_ids = [azurerm_private_dns_zone.pdns-alzver-proj.id]
-  }
+  subnet_id           = azurerm_subnet.subnet-aks.id
 
   private_service_connection {
-    name                           = "endpdb-alzver-proj-ps"
+    name                           = "pendp-pgs-alzver-proj"
     private_connection_resource_id = azurerm_postgresql_server.pgs-alzver-proj.id
     subresource_names              = ["postgresqlServer"]
     is_manual_connection           = false
   }
+
+  private_dns_zone_group {
+    name = "dns-grp-alzver-proj"
+    private_dns_zone_ids = [ azurerm_private_dns_zone.pdns-zone-alzver-proj.id ]
+  }
+}
+
+resource "azurerm_private_dns_zone" "pdns-zone-alzver-proj" {
+  name                = "privatelink.postgres.database.azure.com"
+  resource_group_name = azurerm_resource_group.rg-alzver-proj.name
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "example" {
+  name                  = "dnslink-${var.postfix}"
+  resource_group_name   = azurerm_resource_group.rg-alzver-proj.name
+  private_dns_zone_name = azurerm_private_dns_zone.pdns-zone-alzver-proj.name
+  virtual_network_id    = azurerm_virtual_network.vnet-alzver-proj.id
+  registration_enabled  = false
 }
