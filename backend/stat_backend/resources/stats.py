@@ -6,11 +6,13 @@ from sqlalchemy import extract, and_
 
 
 class StatisticsList(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument("country")
+        self.parser.add_argument("sort_field")
+
     def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument("country")
-        parser.add_argument("sort_field")
-        args = parser.parse_args()
+        args = self.parser.parse_args()
         today = date.today()
         country = args["country"]
         sort_field = args["sort_field"]
