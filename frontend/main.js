@@ -35,6 +35,12 @@ const performUpdate = async () => {
     const response = await fetch('/api/update');
     if (response.status == '200') {
       getLastUpdate();
+    } else if (response.status == '202') {
+      const updateMsg = document.getElementById('allready-update-msg');
+      updateMsg.textContent = "Previous update is still processing";
+    } else if (response.status == '204') {
+      const updateMsg = document.getElementById('allready-update-msg');
+      updateMsg.textContent = "Already updated";
     } else {
       console.log("Update in progress " + response.status);
     }
