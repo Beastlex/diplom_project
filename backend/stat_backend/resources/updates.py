@@ -2,7 +2,7 @@ from flask_restful import Resource
 from models.updates import UpdatesModel
 from models.stats import StatisticsModel
 from datetime import date, timedelta
-from sqlalchemy import extract
+from sqlalchemy import extract, and_
 from db import db
 import urllib.request, json
 
@@ -37,12 +37,17 @@ def date_from_str(string_date):
     return (int(x) for x in string_date.split("-"))
 
 
+class HealthCheck(Resource):
+    def get(self):
+        return "OK", 200
+
+
 class LastUpdate(Resource):
     def get(self):
         record = get_last_update()
         if record:
             return record.json()
-        return {"message": "Updates not found in this year"}, 404
+        return {"message": "Updates not found in this year"}, 204
 
 
 class CountryList(Resource):
@@ -50,7 +55,7 @@ class CountryList(Resource):
         countries = get_country_list()
         if countries:
             return [c.country_code for c in countries]
-        return {"message": "There is no country lis"}, 404
+        return {"message": "There is no country list"}, 204
 
 
 class PerformUpdate(Resource):
@@ -60,11 +65,25 @@ class PerformUpdate(Resource):
         last_update = get_last_update()
         if last_update:
             start_date = last_update.date_value + timedelta(days=1)
+        if start_date > today:
+            return {"message": "Already updated"}, 204
 
-        stat_update = get_from_api(start_date, today)
+        try:
+            stat_update = get_from_api(start_date, today)
+        except Exception:
+            return {
+                "message": "Error in reffer to covidtrackerapi.bsg.ox.ac.uk"
+            }, 404
+
         print("stat_update:", stat_update)
         print("stat_update type:", type(stat_update))
         if stat_update and stat_update["data"]:
+
+            if UpdatesModel.query.filter(
+                    and_(UpdatesModel.date_value == today,
+                         UpdatesModel.records == 0)).first():
+                return {"message": "Last update is not completed yet"}, 202
+
             update_record = UpdatesModel(today, 0)
             db.session.add(update_record)
             db.session.commit()
