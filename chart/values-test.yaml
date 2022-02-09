@@ -31,3 +31,5 @@ frontendHPA:
 
 ingress:
   port: 8080
+
+---
