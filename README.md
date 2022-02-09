@@ -72,14 +72,14 @@ kubectl apply -f k8s/
 С помощью helm есть возможность развернуть две среды (test и production)
 Создать namespace
 ```console
-$ kubectl create namespace test
-$ kubectl create namespace production
+kubectl create namespace test
+kubectl create namespace production
 ```
 
 Далее запустить чарты
 ```console
-$ cd chart
-$ helm install aks-azlver-test aks-alzver -n test -f values-test.yaml
-$ helm install aks-azlver-prod aks-alzver -n production -f values-prod.yaml
+cd chart
+helm install aks-azlver-test aks-alzver -n test -f values-test.yaml
+helm install aks-azlver-prod aks-alzver -n production -f values-prod.yaml
 ```
 ## Дополнитеьная презентация CI/CD в Azure DevOps

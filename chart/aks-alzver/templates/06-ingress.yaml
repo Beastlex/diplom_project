@@ -4,7 +4,7 @@ metadata:
   name: agic-alzverev-proj
   annotations:
     kubernetes.io/ingress.class: azure/application-gateway
-    appgw.ingress.kubernetes.io/override-frontend-port: {{ .Values.ingress.port | quote }}
+    appgw.ingress.kubernetes.io/override-frontend-port: {{ .Values.ingressController.port | quote }}
 spec:
   rules:
     - http:

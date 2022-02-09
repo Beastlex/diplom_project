@@ -1,4 +1,4 @@
-{{- if .Values.frontendHPA.enabled -}}
+{{- if .Values.frontendHPA.enabled }}
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
@@ -19,7 +19,7 @@ spec:
           averageUtilization: {{ .Values.frontendHPA.averageCPU }}
 ---
 {{- end }}
-{{- if .Values.backendHPA.enabled -}}
+{{- if .Values.backendHPA.enabled }}
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:

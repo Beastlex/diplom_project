@@ -29,7 +29,7 @@ frontendHPA:
   maxReplicas: 5
   averageCPU: 60
 
-ingress:
+ingressController:
   port: 80
 
 ---
