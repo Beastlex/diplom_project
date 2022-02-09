@@ -1,0 +1,33 @@
+backend:
+  engine: POSTGRESQL
+  db: statdb
+  user: "psqladmin@pgs-alzver-proj-test.privatelink.postgres.database.azure.com"
+  port: 5432
+  host: "pgs-alzver-proj-test.privatelink.postgres.database.azure.com"
+  args: "--auth-host=scram-sha-256"
+
+backendImage:
+  name: acr2022alzver.azurecr.io/backend
+  tag: v1
+
+backendHPA:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  averageCPU: 60
+
+frontend:
+  replicas: 1
+
+frontendImage:
+  name: acr2022alzver.azurecr.io/frontend
+  tag: v1
+
+frontendHPA:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 5
+  averageCPU: 60
+
+ingress:
+  port: 8080

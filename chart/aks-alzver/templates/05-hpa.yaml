@@ -1,0 +1,41 @@
+{{- if .Values.frontendHPA.enabled -}}
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: frontend-scaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nginx-frontend
+  minReplicas: {{ .Values.frontendHPA.minReplicas }}
+  maxReplicas: {{ .Values.frontendHPA.maxReplicas }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.frontendHPA.averageCPU }}
+---
+{{- end }}
+{{- if .Values.backendHPA.enabled -}}
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: backend-scaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: flask-backend
+  minReplicas: {{ .Values.backendHPA.minReplicas }}
+  maxReplicas: {{ .Values.backendHPA.maxReplicas }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.backendHPA.averageCPU }}
+{{- end }}

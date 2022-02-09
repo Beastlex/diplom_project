@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-backend
+  labels:
+    app: flask
+spec:
+  ports:
+    - port: 5000
+      targetPort: 5000
+  selector:
+    app: flask
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-backend
+spec:
+  selector:
+    matchLabels:
+      app: flask
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:
+      containers:
+        - name: nginx
+          image: "{{ .Values.backendImage.name }}:{{ .Values.backendImage.tag }}"
+          livenessProbe:
+            httpGet:
+              path: /api/healthz
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /api/healthz
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 200m
+              memory: 200Mi
+            limits:
+              cpu: 400m
+              memory: 400Mi
+          env:
+            - name: DATABASE_ENGINE
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: engine
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: db
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: user
+            - name: POSTGRES_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: port
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: host
+            - name: POSTGRES_INITDB_ARGS
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: args
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: proj-secret
+                  key: dbsec.txt
+          ports:
+            - containerPort: 5000
