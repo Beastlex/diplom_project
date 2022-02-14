@@ -9,3 +9,5 @@ db.sqlite3
 *.tfstate
 *.tfstate.*
 *.lock.hcl
+dbsec.txt
+01-secret.yaml

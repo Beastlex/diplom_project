@@ -3,9 +3,9 @@ kind: ConfigMap
 metadata:
   name: proj-config
 data:
-  engine: {{ .Values.backend.engine }}
-  db: {{ .Values.backend.db }} 
-  user: {{ .Values.backend.user }}
-  port: {{ .Values.backend.port }}
-  host: {{ .Values.backend.host }}
-  args: {{ .Values.backend.args }}
+  engine: {{ .Values.backend.engine | quote }}
+  db: {{ .Values.backend.db | quote }} 
+  user: {{ .Values.backend.user | quote }}
+  port: {{ .Values.backend.port | quote }}
+  host: {{ .Values.backend.host | quote }}
+  args: {{ .Values.backend.args | quote}}
