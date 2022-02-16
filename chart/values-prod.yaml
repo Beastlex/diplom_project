@@ -12,7 +12,7 @@ backendImage:
 
 backendHPA:
   enabled: true
-  minReplicas: 1
+  minReplicas: 2
   maxReplicas: 10
   averageCPU: 60
 
@@ -25,7 +25,7 @@ frontendImage:
 
 frontendHPA:
   enabled: true
-  minReplicas: 1
+  minReplicas: 2
   maxReplicas: 5
   averageCPU: 60
 
