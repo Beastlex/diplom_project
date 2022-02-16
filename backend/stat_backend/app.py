@@ -3,6 +3,7 @@ import os
 from flask import Flask
 from flask_migrate import Migrate
 from flask_restful import Api
+from prometheus_flask_exporter import PrometheusMetrics
 
 from resources.stats import StatisticsList
 from resources.updates import LastUpdate, CountryList, PerformUpdate, HealthCheck
@@ -12,6 +13,7 @@ def create_app():
 
     application = Flask(__name__)
     api = Api(application, prefix="/api")
+    metrics = PrometheusMetrics(app)
 
     api.add_resource(StatisticsList, "/stats")
     api.add_resource(PerformUpdate, "/update")
