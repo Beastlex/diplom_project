@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from models.stats import StatisticsModel
+from stat_backend.models.stats import StatisticsModel
 from datetime import date
 from sqlalchemy import extract, and_
 

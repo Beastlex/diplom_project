@@ -1,4 +1,4 @@
-from db import db
+from stat_backend.db import db
 
 
 class UpdatesModel(db.Model):
