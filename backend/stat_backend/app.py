@@ -3,8 +3,8 @@ from flask_migrate import Migrate
 from flask_restful import Api
 from prometheus_flask_exporter import PrometheusMetrics
 
-from stat_backend.resources.stats import StatisticsList
-from stat_backend.resources.updates import (
+from resources.stats import StatisticsList
+from resources.updates import (
     LastUpdate,
     CountryList,
     PerformUpdate,
@@ -24,7 +24,7 @@ def create_app():
     api.add_resource(CountryList, "/countries")
     api.add_resource(HealthCheck, "/healthz")
 
-    from stat_backend.db import db, db_config
+    from db import db, db_config
 
     application.config.update(db_config)
     db.init_app(application)

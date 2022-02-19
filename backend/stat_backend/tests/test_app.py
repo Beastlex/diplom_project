@@ -1,10 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-import os
-
-os.environ["DATABASE_ENGINE"] = "SQLITE"
-
-from stat_backend.app import create_app
+from app import create_app
 
 def test_first():
   assert True
