@@ -1,4 +1,3 @@
-from operator import and_
 from flask_restful import Resource, reqparse
 from models.stats import StatisticsModel
 from datetime import date

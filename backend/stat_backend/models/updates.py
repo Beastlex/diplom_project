@@ -15,7 +15,7 @@ class UpdatesModel(db.Model):
     def json(self):
         return {
             "date_value": f"{self.date_value:%Y-%m-%d}",
-            "records": self.records
+            "records": self.records,
         }
 
     @classmethod

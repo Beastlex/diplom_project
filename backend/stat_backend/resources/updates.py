@@ -1,10 +1,13 @@
+import urllib.request
+import json
 from flask_restful import Resource
 from models.updates import UpdatesModel
 from models.stats import StatisticsModel
 from datetime import date, timedelta
 from sqlalchemy import extract, and_
 from db import db
-import urllib.request, json
+
+MAIN_URL = "https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/"
 
 
 def get_last_update():
@@ -16,7 +19,7 @@ def get_last_update():
 
 
 def get_from_api(start_date, end_date):
-    request_url = f"https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/{start_date:%Y-%m-%d}/{end_date:%Y-%m-%d}"
+    request_url = MAIN_URL + f"{start_date:%Y-%m-%d}/{end_date:%Y-%m-%d}"
     print("request_url: ", request_url)
 
     response = urllib.request.urlopen(request_url)
