@@ -42,4 +42,4 @@ RUN chown -R app:app /app
 WORKDIR /app
 EXPOSE 5000
 USER app
-CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:5000", "app:create_app()"]
+CMD ["gunicorn", "-w", "2", "--threads=4", "-b", "0.0.0.0:5000", "app:create_app()"]
