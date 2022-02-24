@@ -39,6 +39,10 @@ stages:
     - task: UsePythonVersion@0
       displayName: 'Tests with Python 3.x'
     
+    - bash: pip install -r requirements.txt
+      displayName: 'Install requirements'
+      workingDirectory: backend
+
     - bash: pip install pytest flake8
       displayName: 'Install packages'
 
