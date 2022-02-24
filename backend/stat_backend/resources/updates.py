@@ -1,11 +1,12 @@
-import urllib.request
 import json
-from flask_restful import Resource
+import urllib.request
 from datetime import date, timedelta
-from sqlalchemy import extract, and_
+
 from db import db
-from models.updates import UpdatesModel
+from flask_restful import Resource
 from models.stats import StatisticsModel
+from models.updates import UpdatesModel
+from sqlalchemy import and_, extract
 
 MAIN_URL = "https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/"
 
