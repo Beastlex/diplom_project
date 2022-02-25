@@ -34,6 +34,21 @@ services:
       - traefik.port=5000
     ports:
       - "5000:5000"
+    depends_on:
+      - migration
+
+  migration:
+    env_file: environment.env
+    build: 
+      dockerfile: Dockerfile
+      context: ./backend
+    command: ["./wait-for-it.sh", "db:5432", "--", "./migrate.sh"]
+    depends_on:
+      - db
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: none
 
   db:
     env_file: environment.env
