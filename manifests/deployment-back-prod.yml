@@ -2,11 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: flask-backend
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/path: "/metrics"
-    prometheus.io/port: "5000"
-    prometheus.io/scheme: "http"
 spec:
   selector:
     matchLabels:
@@ -16,6 +11,11 @@ spec:
     metadata:
       labels:
         app: flask
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "5000"
+        prometheus.io/scheme: "http"
     spec:
       containers:
         - name: nginx
