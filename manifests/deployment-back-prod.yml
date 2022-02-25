@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: __docker-container-url__/__image-name__:__image-tag__
+          image: acr2022alzver.azurecr.io/backend
           livenessProbe:
             httpGet:
               path: /api/healthz
@@ -91,7 +91,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: db-migrate
-          image: __docker-container-url__/__image-name__:__image-tag__
+          image: acr2022alzver.azurecr.io/backend
           command: 
             - /bin/bash 
             - -c
