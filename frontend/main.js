@@ -35,6 +35,7 @@ const performUpdate = async () => {
     const response = await fetch('/api/update');
     if (response.status == '200') {
       getLastUpdate();
+      getCountryList();
     } else if (response.status == '202') {
       const updateMsg = document.getElementById('allready-update-msg');
       updateMsg.textContent = "Previous update is still processing";
