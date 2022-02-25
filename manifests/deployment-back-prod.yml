@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: acr2022alzver.azurecr.io/backend:v1
+          image: __docker-container-url__/__image-name__:__image-tag__
           livenessProbe:
             httpGet:
               path: /api/healthz
@@ -72,3 +72,58 @@ spec:
                   key: dbsec.txt
           ports:
             - containerPort: 5000
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "migrate-job"
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      name: "migrate-job-pod"
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: db-migrate
+          image: __docker-container-url__/__image-name__:__image-tag__
+          command: 
+            - /bin/bash 
+            - -c
+            - /app/migrate.sh
+          env:
+            - name: DATABASE_ENGINE
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: engine
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: db
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: user
+            - name: POSTGRES_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: port
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: host
+            - name: POSTGRES_INITDB_ARGS
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: args
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: proj-secret
+                  key: dbsec.txt
