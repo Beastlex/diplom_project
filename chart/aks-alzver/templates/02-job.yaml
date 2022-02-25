@@ -9,7 +9,7 @@ spec:
       name: "migrate-job-pod"
     spec:
       restartPolicy: Never
-      concurrencyPolicy: Replace
+      activeDeadlineSeconds: 60
       containers:
         - name: db-migrate
           image: "{{ .Values.backendImage.name }}:{{ .Values.backendImage.tag }}"
