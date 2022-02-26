@@ -11,3 +11,4 @@ db.sqlite3
 *.lock.hcl
 dbsec.txt
 01-secret.yaml
+node_modules
