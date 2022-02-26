@@ -9,7 +9,8 @@ spec:
       name: "migrate-job-pod"
     spec:
       restartPolicy: Never
-      activeDeadlineSeconds: 60
+      activeDeadlineSeconds: 240
+      ttlSecondsAfterFinished: 100
       containers:
         - name: db-migrate
           image: acr2022alzver.azurecr.io/backend:v1
