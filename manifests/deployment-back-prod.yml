@@ -83,7 +83,7 @@ kind: Job
 metadata:
   name: "migrate-job"
 spec:
-  backoffLimit: 0
+  backoffLimit: 2
   template:
     metadata:
       name: "migrate-job-pod"
