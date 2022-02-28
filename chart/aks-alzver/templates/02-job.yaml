@@ -10,7 +10,6 @@ spec:
     spec:
       restartPolicy: Never
       activeDeadlineSeconds: 240
-      ttlSecondsAfterFinished: 100
       containers:
         - name: db-migrate
           image: "{{ .Values.backendImage.name }}:{{ .Values.backendImage.tag }}"

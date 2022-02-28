@@ -90,7 +90,6 @@ spec:
     spec:
       restartPolicy: Never
       activeDeadlineSeconds: 240
-      ttlSecondsAfterFinished: 100
       containers:
         - name: db-migrate
           image: acr2022alzver.azurecr.io/backend
