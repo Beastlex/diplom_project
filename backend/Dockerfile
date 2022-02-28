@@ -25,6 +25,9 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.t
 # ####
 FROM python:3.9.9-slim-bullseye
 
+# Upgrade
+RUN apt-get update && apt-get upgrade -y
+
 # Working dir
 RUN mkdir /app
 
