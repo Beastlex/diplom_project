@@ -42,7 +42,7 @@ services:
     build: 
       dockerfile: Dockerfile
       context: ./backend
-    command: ["./wait-for-it.sh", "db:5432", "--", "./migrate.sh"]
+    command: ["npm", "run", "migrate"]
     depends_on:
       - db
     deploy:

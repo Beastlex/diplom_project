@@ -1,11 +1,11 @@
-import express from 'express';
-import { json } from 'body-parser';
+const express = require('express');
+const bodyParser = require('body-parser');
 
-import { statRouter } from './routes/stat';
-import { updateRouter } from './routes/update';
+const statRouter = require('./routes/stat');
+const updateRouter = require('./routes/update');
 
 const app = express();
-app.use(json())
+app.use(bodyParser.json())
 
 app.use(statRouter);
 
