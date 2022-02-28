@@ -14,6 +14,7 @@ resources:
 - repo: self
 
 variables:
+  trivyVersion: 0.18.3
 
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '7fcc1e3f-f056-4f02-b47f-b34ffef93e6d'
@@ -48,6 +49,20 @@ stages:
 
     - upload: manifests
       artifact: manifests
+    
+    - script: |
+        wget https://github.com/aquasecurity/trivy/releases/download/v$(trivyVersion)/trivy_$(trivyVersion)_Linux-64bit.deb
+        sudo dpkg -i trivy_0.18.3_Linux-64bit.deb
+        trivy -v
+      displayName: 'Download and install Trivy'
+    
+    - task: CmdLine@2
+      displayName: "Run trivy scan"
+      inputs:
+        script: |
+          trivy image --exit-code 0 --severity LOW,MEDIUM $(containerRegistry)/$(imageRepository):$(tag)
+          trivy image --exit-code 1 --severity HIGH,CRITICAL $(containerRegistry)/$(imageRepository):$(tag)  
+
 
 - stage: Deploy
   displayName: Deploy stage
