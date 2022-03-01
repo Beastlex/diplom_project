@@ -6,37 +6,38 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       date_value: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       country_code: {
-        type: Sequelize.STRING(3)
+        type: Sequelize.STRING(3),
       },
       confirmed: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       deaths: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       stringency_actual: {
-        type: Sequelize.DECIMAL(10, 2)
+        type: Sequelize.DECIMAL(10, 2),
       },
       stringency: {
-        type: Sequelize.DECIMAL(10, 2)
+        type: Sequelize.DECIMAL(10, 2),
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
+    await queryInterface.addIndex('CovStats', ['date_value', 'country_code']);
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('CovStats');
-  }
+  },
 };
