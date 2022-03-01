@@ -1,9 +1,10 @@
 const express = require('express');
 
+const statController = require('../controllers/stat');
+
 const router = express.Router();
 
-router.get('/api/get_countries', (req, res) => {
-  res.send("Cointries");
-});
+router.get('/countries', statController.getCountries);
+router.post('/stats', statController.postStat);
 
 module.exports = router;
