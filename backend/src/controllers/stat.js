@@ -20,17 +20,16 @@ exports.postStat = async (req, res, next) => {
   const countryCode = req.body.country;
   const sortField = req.body.sort_field === 'deaths' ? 'deaths' : 'date_value';
   const year = new Date().getFullYear();
+  startDate = new Date(year, 0, 1);
+  endDate = new Date(year, 11, 31);
   try {
     const stats = await models.CovStat.findAll({
       order: [sortField],
       where: {
-        $and: [
-          Sequelize.where(
-            Sequelize.fn('YEAR', Sequelize.col('date_value')),
-            year
-          ),
-          { country_code: countryCode },
-        ],
+        date_value: {
+          [Sequelize.Op.between]: [startDate, endDate],
+        },
+        country_code: countryCode,
       },
     });
     return res.status(200).json({ statistics: stats });
