@@ -62,6 +62,11 @@ const buildApiString = (startDate, endDate) => {
   return MAIN_URL + formatDate(startDate) + '/' + formatDate(endDate);
 };
 
+const strToDate = (dateString) => {
+  let [year, mon, day] = dateString.split('-').map((c) => parseInt(c));
+  return new Date(year, mon - 1, day);
+};
+
 const insertStatData = async (data) => {
   const insertionData = [];
   const mock = {};
@@ -70,7 +75,15 @@ const insertStatData = async (data) => {
       insertionData.push(data[key][key_nest]);
     }
   }
-  result = await models.CovStat.bulkCreate(insertionData);
-  console.log(result);
-  return true;
+  const result = await models.CovStat.bulkCreate(insertionData);
+  const updateDate = strToDate(Object.keys(data).reverse()[0]);
+  const updateCount = Object.keys(data).length;
+  if (result && updateDate) {
+    const newUpdRec = await models.Upgrade.create({
+      date_value: updateDate,
+      records: updateCount,
+    });
+    return true;
+  }
+  return false;
 };
