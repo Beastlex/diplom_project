@@ -4,8 +4,12 @@ const Sequelize = require('sequelize');
 exports.getCountries = async (req, res, next) => {
   try {
     const countries = await models.CovStat.findAll({
-      attributes: [Sequelize.fn('DISTINCT', Sequelize.col('country_code'))],
+      attributes: [
+        Sequelize.fn('DISTINCT', Sequelize.col('country_code')),
+        'country_code',
+      ],
     });
+    console.log(countries.map((r) => r.attributes));
     if (countries.length === 0) {
       return res.status(204).json({ message: 'There is no country list' });
     }
