@@ -8,6 +8,6 @@ module.exports = {
   },
   test: {
     dialect: 'sqlite',
-    storage: ':memory:',
+    storage: './database.sqlite3',
   },
 };
