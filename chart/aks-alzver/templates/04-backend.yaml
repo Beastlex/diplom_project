@@ -25,14 +25,14 @@ spec:
       labels:
         app: flask
       annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/path: "/metrics"
-        prometheus.io/port: "5000"
-        prometheus.io/scheme: "http"
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: '/metrics'
+        prometheus.io/port: '5000'
+        prometheus.io/scheme: 'http'
     spec:
       containers:
         - name: nginx
-          image: "{{ .Values.backendImage.name }}:{{ .Values.backendImage.tag }}"
+          image: '{{ .Values.backendImage.name }}:{{ .Values.backendImage.tag }}'
           livenessProbe:
             httpGet:
               path: /api/healthz
@@ -53,6 +53,11 @@ spec:
               cpu: 400m
               memory: 400Mi
           env:
+            - name: NODE_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: proj-config
+                  key: node-env
             - name: DATABASE_ENGINE
               valueFrom:
                 configMapKeyRef:
