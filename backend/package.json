@@ -5,10 +5,18 @@
   "main": "src/index.js",
   "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
     "start": "nodemon src/index.js",
     "start-devel": "node src/index.js",
-    "migrate": "cd src && ./wait-for.sh db:5432 -- ./migrate.sh"
+    "migrate": "cd src && ./migrate.sh",
+    "pretest": "cross-env NODE_ENV=test npm run migrate"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "verbose": true
   },
   "author": "",
   "license": "ISC",
@@ -20,5 +28,11 @@
     "pg": "^8.7.3",
     "sequelize": "^6.17.0",
     "sequelize-cli": "^6.4.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "jest": "^27.5.1",
+    "sqlite3": "^5.0.2",
+    "supertest": "^6.2.2"
   }
 }
