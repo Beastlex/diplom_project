@@ -5,11 +5,11 @@
   "main": "src/index.js",
   "type": "commonjs",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+    "test": "cd src && cross-env NODE_ENV=test jest --testTimeout=10000",
     "start": "node src/index.js",
     "start-devel": "nodemon src/index.js",
     "migrate": "cd src && ./migrate.sh",
-    "pretest": "cross-env NODE_ENV=test npm run migrate"
+    "pretest": "cd src && cross-env NODE_ENV=test npm run migrate"
   },
   "jest": {
     "testEnvironment": "node",
