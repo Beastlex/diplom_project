@@ -6,8 +6,8 @@
   "type": "commonjs",
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
-    "start": "nodemon src/index.js",
-    "start-devel": "node src/index.js",
+    "start": "node src/index.js",
+    "start-devel": "nodemon src/index.js",
     "migrate": "cd src && ./migrate.sh",
     "pretest": "cross-env NODE_ENV=test npm run migrate"
   },
