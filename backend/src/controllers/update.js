@@ -38,8 +38,8 @@ exports.getLastUpdate = async (req, res, next) => {
   }
 };
 
-exports.getHealth = (req, res, next) => {
-  res.status(200).json({ message: 'OK' });
+exports.getHealth = async (req, res, next) => {
+  return res.status(200).json({ message: 'OK' });
 };
 
 const lastUpdate = async () => {
