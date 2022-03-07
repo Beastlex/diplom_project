@@ -9,7 +9,8 @@
     "start": "node src/index.js",
     "start-devel": "nodemon src/index.js",
     "migrate": "cd src && ./migrate.sh",
-    "pretest": "cd src && cross-env NODE_ENV=test npm run migrate"
+    "pretest": "cd src && cross-env NODE_ENV=test npm run migrate",
+    "lint": "cd src && npx eslint ."
   },
   "jest": {
     "testEnvironment": "node",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "eslint": "^8.10.0",
     "jest": "^27.5.1",
     "sqlite3": "^5.0.2",
     "supertest": "^6.2.2"
