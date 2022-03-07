@@ -15,6 +15,9 @@ exports.getPerformUpdate = async (req, res, next) => {
       startDate.setDate(updateRec.date_value.getDate() + 1);
     }
     let output = await axios.get(buildApiString(startDate, endDate));
+    if (!output.data.data) {
+      return res.status(204).json({ message: '"Already updated' });
+    }
     result = await insertStatData(output.data.data);
   } catch (error) {
     console.log(error.message);
@@ -69,7 +72,6 @@ const strToDate = (dateString) => {
 
 const insertStatData = async (data) => {
   const insertionData = [];
-  const mock = {};
   for (const key of Object.keys(data)) {
     for (const key_nest of Object.keys(data[key])) {
       insertionData.push(data[key][key_nest]);
