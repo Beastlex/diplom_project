@@ -20,7 +20,7 @@ variables:
   dockerRegistryServiceConnection: '04bbf573-3c44-48cc-b856-b6767da0551f'
   imageRepository: 'backendtest'
   containerRegistry: 'acr2022alzver.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: 'backend/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'acr2022alzver77170fb6-auth'
 
@@ -42,11 +42,11 @@ stages:
         versionSpec: '14.x'
       displayName: 'Install Node.js'
     - script: |
-        cd backend
         npm install
         npm run lint
         npm run test
       displayName: 'npm lint and test'
+      workingDirectory: backend
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
