@@ -10,7 +10,7 @@ module.exports = {
     host: trimEnvVar(process.env.POSTGRES_HOST),
     port: trimEnvVar(process.env.POSTGRES_PORT),
     dialect: 'postgres',
-    logging: console.log,
+    logging: false,
     pool: {
       max: 5,
       min: 0,

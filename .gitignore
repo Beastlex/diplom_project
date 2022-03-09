@@ -12,3 +12,4 @@ db.sqlite3
 dbsec.txt
 01-secret.yaml
 node_modules
+backend/src/database.sqlite3
