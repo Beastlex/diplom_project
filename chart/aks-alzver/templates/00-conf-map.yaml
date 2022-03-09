@@ -3,10 +3,10 @@ kind: ConfigMap
 metadata:
   name: proj-config
 data:
-  engine: { { .Values.backend.engine | quote } }
-  db: { { .Values.backend.db | quote } }
-  user: { { .Values.backend.user | quote } }
-  port: { { .Values.backend.port | quote } }
-  host: { { .Values.backend.host | quote } }
-  args: { { .Values.backend.args | quote } }
-  node-env: { { .Values.backend.node-env | quote } }
+  engine: {{ .Values.backend.engine | quote }}
+  db: {{ .Values.backend.db | quote }}
+  user: {{ .Values.backend.user | quote }}
+  port: {{ .Values.backend.port | quote }}
+  host: {{ .Values.backend.host | quote }}
+  args: {{ .Values.backend.args | quote }}
+  node-env: {{ .Values.backend.node-env | quote }}
