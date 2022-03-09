@@ -66,6 +66,9 @@ stages:
 
     - upload: manifests
       artifact: manifests
+    
+    - upload: chart
+      artifact: chart
       
     - script: |
         wget https://github.com/aquasecurity/trivy/releases/download/v$(trivyVersion)/trivy_$(trivyVersion)_Linux-64bit.deb
@@ -99,6 +102,7 @@ stages:
             inputs:
               helmVersion: 'latest'
               installKubectl: false
+            
           - task: HelmDeploy@0
             displayName: Upgrade chart
             inputs:
@@ -107,7 +111,7 @@ stages:
               namespace: 'test'
               command: upgrade
               chartType: FilePath
-              chartPath: '$(Pipeline.Workspace)/chart/aks-alzver'
+              chartPath: '$(Pipeline.Workspace)/chart/aks-alzver/'
               releaseName: 'aks-alzver-test'
               valueFile: '$(Pipeline.Workspace)/chart/values-test.yaml'
               overrideValues: 'backendImage.name=$(containerRegistry)/$(imageRepository),backendImage.tag=$(tag)'
