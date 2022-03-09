@@ -5,7 +5,7 @@ backend:
   port: 5432
   host: 'pgs-alzver-proj.privatelink.postgres.database.azure.com'
   args: '--auth-host=scram-sha-256'
-  node-env: 'production'
+  nodeenv: 'production'
 
 backendImage:
   name: acr2022alzver.azurecr.io/backend
