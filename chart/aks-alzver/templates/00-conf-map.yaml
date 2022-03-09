@@ -9,4 +9,4 @@ data:
   port: {{ .Values.backend.port | quote }}
   host: {{ .Values.backend.host | quote }}
   args: {{ .Values.backend.args | quote }}
-  node-env: {{ .Values.backend.nodeenv | quote }}
+  nodeenv: {{ .Values.backend.nodeenv | quote }}
