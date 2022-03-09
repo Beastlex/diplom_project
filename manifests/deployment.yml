@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: backendtest 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backendtest
+  template:
+    metadata:
+      labels:
+        app: backendtest 
+    spec:
+      containers:
+        - name: backendtest 
+          image: acr2022alzver.azurecr.io/backendtest
+          ports:
+          - containerPort: 5000
