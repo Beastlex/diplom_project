@@ -100,14 +100,8 @@ stages:
           - task: HelmInstaller@0
             displayName: Install helm
             inputs:
-              helmVersion: '2.x'
+              helmVersion: 'latest'
               installKubectl: false
-          
-          - bash: ls -la
-            displayName: 'List dir '
-          
-          - bash: ls -la $(Pipeline.Workspace)
-            displayName: 'List dir 2'
             
           - task: HelmDeploy@0
             displayName: Upgrade chart
