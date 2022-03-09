@@ -41,12 +41,19 @@ stages:
       inputs:
         versionSpec: '14.x'
       displayName: 'Install Node.js'
-    - script: |
-        npm install
-        npm run lint
-        npm run test
-      displayName: 'npm lint and test'
+    
+    - bash: npm install
+      displayName: 'Install requirements'
       workingDirectory: backend
+    
+    - bash: npm run lint
+      displayName: 'Linting'
+      workingDirectory: backend
+    
+    - bash: npm run test
+      displayName: 'Perform tests'
+      workingDirectory: backend
+    
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
