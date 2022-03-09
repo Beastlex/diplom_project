@@ -66,6 +66,9 @@ stages:
 
     - upload: manifests
       artifact: manifests
+    
+    - upload: chart
+      artifact: chart
       
     - script: |
         wget https://github.com/aquasecurity/trivy/releases/download/v$(trivyVersion)/trivy_$(trivyVersion)_Linux-64bit.deb
