@@ -1,10 +1,11 @@
 backend:
   engine: POSTGRESQL
   db: statdb
-  user: "psqladmin@pgs-alzver-proj.privatelink.postgres.database.azure.com"
+  user: 'psqladmin@pgs-alzver-proj.privatelink.postgres.database.azure.com'
   port: 5432
-  host: "pgs-alzver-proj.privatelink.postgres.database.azure.com"
-  args: "--auth-host=scram-sha-256"
+  host: 'pgs-alzver-proj.privatelink.postgres.database.azure.com'
+  args: '--auth-host=scram-sha-256'
+  node-env: 'production'
 
 backendImage:
   name: acr2022alzver.azurecr.io/backend
@@ -33,3 +34,4 @@ ingressController:
   port: 80
 
 ---
+
