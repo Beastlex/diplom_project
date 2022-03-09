@@ -9,7 +9,7 @@ backend:
 
 backendImage:
   name: acr2022alzver.azurecr.io/backend
-  tag: v1
+  tag: latest
 
 backendHPA:
   enabled: false
@@ -22,7 +22,7 @@ frontend:
 
 frontendImage:
   name: acr2022alzver.azurecr.io/frontend
-  tag: v1
+  tag: latest
 
 frontendHPA:
   enabled: false
