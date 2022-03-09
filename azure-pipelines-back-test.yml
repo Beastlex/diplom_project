@@ -100,7 +100,7 @@ stages:
           - task: HelmInstaller@0
             displayName: Install helm
             inputs:
-              helmVersion: 'latest'
+              helmVersion: '2.x'
               installKubectl: false
           
           - bash: ls -la
