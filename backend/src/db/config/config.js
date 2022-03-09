@@ -1,10 +1,14 @@
+const trimEnvVar = (envVar) => {
+  return envVar ? envVar.trim() : '';
+};
+
 module.exports = {
   production: {
-    username: process.env.POSTGRES_USER.trim(),
-    password: process.env.POSTGRES_PASSWORD.trim(),
-    database: process.env.POSTGRES_DB.trim(),
-    host: process.env.POSTGRES_HOST.trim(),
-    port: process.env.POSTGRES_PORT.trim(),
+    username: trimEnvVar(process.env.POSTGRES_USER),
+    password: trimEnvVar(process.env.POSTGRES_PASSWORD),
+    database: trimEnvVar(process.env.POSTGRES_DB),
+    host: trimEnvVar(process.env.POSTGRES_HOST),
+    port: trimEnvVar(process.env.POSTGRES_PORT),
     dialect: 'postgres',
     logging: console.log,
     pool: {
