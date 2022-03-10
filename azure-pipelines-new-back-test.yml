@@ -1,0 +1,103 @@
+# Deploy to Azure Kubernetes Service
+# Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+  branches:
+    include:
+    - devel
+  paths:
+    include:
+    - frontend
+
+resources:
+- repo: self
+
+variables:
+  trivyVersion: 0.18.3
+
+
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: '485c3e1d-cd07-4ce1-b0a6-4f85f70a0c0c'
+  imageRepository: 'backendtest'
+  containerRegistry: 'acr2022alzver.azurecr.io'
+  dockerfilePath: 'backend/Dockerfile'
+  tag: '$(Build.BuildId)'
+  imagePullSecret: 'acr2022alzver1373f4eb-auth'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        containerRegistry: 'acr2022alzver'
+        repository: '$(imageRepository)'
+        command: 'buildAndPush'
+        Dockerfile: 'frontend/Dockerfile'
+        tags: |
+          $(tag)
+          latest
+
+    - upload: manifests
+      artifact: manifests
+    
+    - upload: chart
+      artifact: chart
+
+    - script: |
+        wget https://github.com/aquasecurity/trivy/releases/download/v$(trivyVersion)/trivy_$(trivyVersion)_Linux-64bit.deb
+        sudo dpkg -i trivy_0.18.3_Linux-64bit.deb
+        trivy -v
+      displayName: 'Download and install Trivy'
+    
+    - task: CmdLine@2
+      displayName: "Run trivy scan"
+      inputs:
+        script: |
+          trivy image --exit-code 0 --severity LOW,MEDIUM $(containerRegistry)/$(imageRepository):$(tag)
+          trivy image --exit-code 1 --severity HIGH,CRITICAL $(containerRegistry)/$(imageRepository):$(tag)
+
+- stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'project.test'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: HelmInstaller@0
+            displayName: Install helm
+            inputs:
+              helmVersion: 'latest'
+              installKubectl: false
+            
+          - task: HelmDeploy@0
+            displayName: Upgrade chart
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceConnection: 'aks-alzver-proj'
+              namespace: 'test'
+              command: 'upgrade'
+              chartType: 'FilePath'
+              chartPath: '$(Pipeline.Workspace)/chart/aks-alzver/'
+              releaseName: 'aks-alzver-test'
+              overrideValues: 'backend.repName=$(containerRegistry)/$(imageRepository),backend.tagName=$(tag)'
+              valueFile: '$(Pipeline.Workspace)/chart/values-test.yaml'
+
