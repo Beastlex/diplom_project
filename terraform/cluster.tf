@@ -9,7 +9,7 @@ resource "azurerm_kubernetes_cluster" "aks-alzver-proj" {
     vm_size             = "Standard_D2_v2"
     enable_auto_scaling = true
     min_count           = 1
-    max_count           = 3
+    max_count           = 5
     vnet_subnet_id      = azurerm_subnet.subnet-aks.id
     tags = {
       owner = var.owner
