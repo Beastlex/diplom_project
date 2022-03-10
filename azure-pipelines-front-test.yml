@@ -51,6 +51,9 @@ stages:
     - upload: chart
       artifact: chart
     
+    - upload: manifests
+      artifact: manifests
+    
     - script: |
         wget https://github.com/aquasecurity/trivy/releases/download/v$(trivyVersion)/trivy_$(trivyVersion)_Linux-64bit.deb
         sudo dpkg -i trivy_0.18.3_Linux-64bit.deb
@@ -73,27 +76,25 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'Beastlexdiplomproject-1763.test'
+    environment: 'Beastlexdiplomproject-2870.production'
     strategy:
       runOnce:
         deploy:
           steps:
-          - task: HelmInstaller@0
-            displayName: Install helm
+          - task: KubernetesManifest@0
+            displayName: Create imagePullSecret
             inputs:
-              helmVersion: 'latest'
-              installKubectl: false
-            
-          - task: HelmDeploy@0
-            displayName: Upgrade chart
+              action: createSecret
+              secretName: $(imagePullSecret)
+              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
+
+          - task: KubernetesManifest@0
+            displayName: Deploy to Kubernetes cluster
             inputs:
-              connectionType: 'Kubernetes Service Connection'
-              kubernetesServiceConnection: 'aks-alzver-proj-test'
-              namespace: 'test'
-              command: upgrade
-              chartType: FilePath
-              chartPath: '$(Pipeline.Workspace)/chart/aks-alzver/charts/frontend/'
-              releaseName: 'aks-alzver-test'
-              valueFile: '$(Pipeline.Workspace)/chart/aks-alzver/charts/frontend/values.yaml'
-              overrideValues: 'repName=$(containerRegistry)/$(imageRepository),tagName=$(tag)'
-              arguments: 
+              action: deploy
+              manifests: |
+                $(Pipeline.Workspace)/manifests/deployment-front-test.yml
+              imagePullSecrets: |
+                $(imagePullSecret)
+              containers: |
+                $(containerRegistry)/$(imageRepository):$(tag)
