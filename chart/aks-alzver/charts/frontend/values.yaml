@@ -5,4 +5,4 @@
 replicas: 1
 
 repName: acr2022alzver.azurecr.io/frontendtest
-tagName: latest
+tagName: v1
