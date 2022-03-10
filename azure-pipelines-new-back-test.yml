@@ -8,7 +8,7 @@ trigger:
     - devel
   paths:
     include:
-    - frontend
+    - backend
 
 resources:
 - repo: self
@@ -44,7 +44,7 @@ stages:
         containerRegistry: 'acr2022alzver'
         repository: '$(imageRepository)'
         command: 'buildAndPush'
-        Dockerfile: 'frontend/Dockerfile'
+        Dockerfile: 'backend/Dockerfile'
         tags: |
           $(tag)
           latest
