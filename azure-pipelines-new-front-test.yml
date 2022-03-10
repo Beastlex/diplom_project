@@ -44,7 +44,9 @@ stages:
         repository: '$(imageRepository)'
         command: 'buildAndPush'
         Dockerfile: 'frontend/Dockerfile'
-        tags: '$(tag)'
+        tags: |
+          $(tag)
+          latest 
 
     - upload: manifests
       artifact: manifests
