@@ -46,6 +46,7 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+          latest
 
     - upload: chart
       artifact: chart
