@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: proj-config
+data:
+  engine: {{ .Values.backendEnv.engine | quote }}
+  db: {{ .Values.backendEnv.db | quote }}
+  user: {{ .Values.backendEnv.user | quote }}
+  port: {{ .Values.backendEnv.port | quote }}
+  host: {{ .Values.backendEnv.host | quote }}
+  args: {{ .Values.backendEnv.args | quote }}
+  nodeenv: {{ .Values.backendEnv.nodeenv | quote }}

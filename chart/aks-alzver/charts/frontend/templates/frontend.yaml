@@ -19,7 +19,7 @@ spec:
   selector:
     matchLabels:
       app: nginx
-  replicas: {{ .Values.frontend.replicas }}
+  replicas: {{ .Values.replicas }}
   template:
     metadata:
       labels:
@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: "{{ .Values.frontendImage.name }}:{{ .Values.frontendImage.tag }}"
+          image: "{{ .Values.repName }}:{{ .Values.tagName }}"
           livenessProbe:
             tcpSocket:
               port: 80

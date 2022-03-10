@@ -19,7 +19,7 @@ spec:
   selector:
     matchLabels:
       app: flask
-  replicas: 1
+  replicas: {{ .Values.replicas }}
   template:
     metadata:
       labels:
@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: '{{ .Values.backendImage.name }}:{{ .Values.backendImage.tag }}'
+          image: '{{ .Values.repName }}:{{ .Values.tagName }}'
           livenessProbe:
             httpGet:
               path: /api/healthz
