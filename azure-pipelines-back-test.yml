@@ -107,6 +107,7 @@ stages:
           - task: HelmDeploy@0
             displayName: Upgrade chart
             inputs:
+              chartName: 'backend-test'
               connectionType: 'Kubernetes Service Connection'
               kubernetesServiceConnection: 'aks-alzver-proj-test'
               namespace: 'test'
