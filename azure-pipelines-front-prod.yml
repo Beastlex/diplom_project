@@ -72,7 +72,6 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'Beastlexdiplomproject-2870.production'
     strategy:
       runOnce:
         deploy:
