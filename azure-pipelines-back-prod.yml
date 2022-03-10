@@ -58,12 +58,11 @@ stages:
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+        containerRegistry: 'acr2022alzver'
+        repository: '$(imageRepository)'
+        command: 'buildAndPush'
+        Dockerfile: 'backend/Dockerfile'
+        tags: '$(tag)'
 
     - upload: manifests
       artifact: manifests
@@ -90,7 +89,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'Beastlexdiplomproject-2027.production'
+    environment: 'project.production'
     strategy:
       runOnce:
         deploy:
@@ -105,11 +104,10 @@ stages:
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
-              action: deploy
-              manifests: |
-                $(Pipeline.Workspace)/manifests/deployment-back-prod.yml
-              imagePullSecrets: |
-                $(imagePullSecret)
-              containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
+              action: 'deploy'
+              kubernetesServiceConnection: 'aks-alzver-proj'
+              namespace: 'production'
+              manifests: '$(Pipeline.Workspace)/manifests/deployment-back-prod.yml'
+              containers: '$(containerRegistry)/$(imageRepository):$(tag)'
+              imagePullSecrets: '$(imagePullSecret)'
 
