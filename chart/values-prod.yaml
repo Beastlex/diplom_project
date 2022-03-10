@@ -13,8 +13,8 @@ backendImage:
 backendHPA:
   enabled: true
   minReplicas: 2
-  maxReplicas: 10
-  averageCPU: 60
+  maxReplicas: 15
+  averageCPU: 40
 
 frontend:
   replicas: 1
@@ -26,8 +26,8 @@ frontendImage:
 frontendHPA:
   enabled: true
   minReplicas: 2
-  maxReplicas: 5
-  averageCPU: 60
+  maxReplicas: 15
+  averageCPU: 40
 
 ingressController:
   port: 80
