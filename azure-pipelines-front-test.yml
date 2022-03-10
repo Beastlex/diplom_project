@@ -92,8 +92,8 @@ stages:
               namespace: 'test'
               command: upgrade
               chartType: FilePath
-              chartPath: '$(Pipeline.Workspace)/chart/aks-alzver/'
+              chartPath: '$(Pipeline.Workspace)/chart/aks-alzver/charts/frontend/'
               releaseName: 'aks-alzver-test'
-              valueFile: '$(Pipeline.Workspace)/chart/values-test.yaml'
-              overrideValues: 'frontendImage.name=$(containerRegistry)/$(imageRepository),frontendImage.tag=$(tag)'
+              valueFile: '$(Pipeline.Workspace)/chart/aks-alzver/charts/frontend/values.yaml'
+              overrideValues: 'repName=$(containerRegistry)/$(imageRepository),tagName=$(tag)'
               arguments: 
