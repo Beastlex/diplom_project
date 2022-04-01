@@ -82,4 +82,24 @@ cd chart
 helm install aks-alzver-test aks-alzver -n test -f values-test.yaml
 helm install aks-alzver-prod aks-alzver -n production -f values-prod.yaml
 ```
+
+Мониторинг
+Добавить репозиторий 
+```
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+```
+
+ Установить чарт
+ ```
+ helm install prometheus \                                                 
+  prometheus-community/kube-prometheus-stack \
+  --namespace monitoring \
+  --create-namespace
+ ```
+ 
+ По умолчанию Grafana не имеет доступа извне. Можно пробросить порт
+ ```
+ kubectl port-forward --namespace monitoring svc/prometheus-grafana 8080:80
+ ```
+ 
 ## Дополнитеьная презентация CI/CD в Azure DevOps
